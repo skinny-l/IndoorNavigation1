@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="@string/scanning_settings">
+        <SwitchPreferenceCompat
+            app:key="pref_continuous_scanning"
+            app:title="@string/continuous_scanning"
+            app:summary="@string/continuous_scanning_summary"
+            app:defaultValue="true" />
+
+        <SeekBarPreference
+            app:key="pref_scan_interval"
+            app:title="@string/scan_interval"
+            app:summary="@string/scan_interval_summary"
+            app:defaultValue="10"
+            app:min="5"
+            android:max="60"
+            app:showSeekBarValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/positioning_settings">
+        <SwitchPreferenceCompat
+            app:key="pref_position_smoothing"
+            app:title="@string/position_smoothing"
+            app:summary="@string/position_smoothing_summary"
+            app:defaultValue="true" />
+
+        <ListPreference
+            app:key="pref_positioning_algorithm"
+            app:title="@string/positioning_algorithm"
+            app:summary="@string/positioning_algorithm_summary"
+            app:entries="@array/positioning_algorithm_entries"
+            app:entryValues="@array/positioning_algorithm_values"
+            app:defaultValue="trilateration" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/map_settings">
+        <SwitchPreferenceCompat
+            app:key="pref_auto_center"
+            app:title="@string/auto_center"
+            app:summary="@string/auto_center_summary"
+            app:defaultValue="true" />
+
+        <SeekBarPreference
+            app:key="pref_path_thickness"
+            app:title="@string/path_thickness"
+            app:summary="@string/path_thickness_summary"
+            app:defaultValue="5"
+            app:min="1"
+            android:max="10"
+            app:showSeekBarValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/firebase_settings">
+        <SwitchPreferenceCompat
+            app:key="pref_use_firebase"
+            app:title="@string/use_firebase"
+            app:summary="@string/use_firebase_summary"
+            app:defaultValue="true" />
+
+        <EditTextPreference
+            app:key="pref_building_id"
+            app:title="@string/building_id"
+            app:summary="@string/building_id_summary"
+            app:defaultValue="default_building" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

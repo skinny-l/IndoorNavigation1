@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#3F51B5"
+        android:pathData="M256,0C114.84,0 0,114.84 0,256s114.84,256 256,256 256,-114.84 256,-256S397.16,0 256,0z" />
+
+    <!-- Building Outline -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M356,136H156c-6.63,0 -12,5.37 -12,12v216c0,6.63 5.37,12 12,12h200c6.63,0 12,-5.37 12,-12V148c0,-6.63 -5.37,-12 -12,-12zM196,326h-20v-20h20v20zM196,286h-20v-20h20v20zM196,246h-20v-20h20v20zM196,206h-20v-20h20v20zM196,166h-20v-20h20v20zM256,326h-20v-20h20v20zM256,286h-20v-20h20v20zM256,246h-20v-20h20v20zM256,206h-20v-20h20v20zM256,166h-20v-20h20v20zM316,326h-20v-20h20v20zM316,286h-20v-20h20v20zM316,246h-20v-20h20v20zM316,206h-20v-20h20v20zM316,166h-20v-20h20v20zM336,316h-140v-160h140v160z" />
+
+    <!-- Navigation Pin -->
+    <path
+        android:fillColor="#FF4081"
+        android:pathData="M256,176c-13.23,0 -24,10.77 -24,24 0,10.6 20,42 24,48 4,-6 24,-37.4 24,-48 0,-13.23 -10.77,-24 -24,-24zM256,212c-6.63,0 -12,-5.37 -12,-12s5.37,-12 12,-12 12,5.37 12,12 -5.37,12 -12,12z" />
+
+    <!-- Navigation Path -->
+    <path
+        android:strokeColor="#FF4081"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M256,212c0,20 -30,40 -30,80s30,60 60,60" />
+</vector>
