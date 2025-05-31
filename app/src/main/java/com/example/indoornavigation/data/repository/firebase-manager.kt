@@ -142,6 +142,43 @@ class FirebaseManager {
     }
     
     /**
+     * Send password reset email
+     */
+    suspend fun sendPasswordResetEmail(email: String) = withContext(Dispatchers.IO) {
+        auth.sendPasswordResetEmail(email).await()
+    }
+    
+    /**
+     * Sign up with email and password
+     */
+    suspend fun signUp(email: String, password: String): Result<FirebaseUser> = withContext(Dispatchers.IO) {
+        try {
+            val authResult = auth.createUserWithEmailAndPassword(email, password).await()
+            authResult.user?.let {
+                Result.success(it)
+            } ?: Result.failure(Exception("Authentication failed"))
+        } catch (e: Exception) {
+            Log.e(TAG, "Sign up failed", e)
+            Result.failure(e)
+        }
+    }
+    
+    /**
+     * Save user details to Firestore
+     */
+    suspend fun saveUserDetails(user: FirebaseUser, userInfo: Map<String, String>) = withContext(Dispatchers.IO) {
+        try {
+            firestore.collection("users")
+                .document(user.uid)
+                .set(userInfo)
+                .await()
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to save user details", e)
+            throw e
+        }
+    }
+    
+    /**
      * Save user position for analytics
      */
     suspend fun saveUserPosition(buildingId: String, position: Position) = withContext(Dispatchers.IO) {

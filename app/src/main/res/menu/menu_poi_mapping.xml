@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_export_firebase"
+        android:title="Export to Firebase"
+        android:icon="@android:drawable/ic_menu_upload"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_export_log"
+        android:title="Export to Log"
+        android:icon="@android:drawable/ic_menu_save"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_clear_pois"
+        android:title="Clear POIs"
+        android:icon="@android:drawable/ic_menu_delete"
+        app:showAsAction="ifRoom" />
+</menu>

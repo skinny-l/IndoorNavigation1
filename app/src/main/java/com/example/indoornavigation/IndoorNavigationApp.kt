@@ -4,7 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.preference.PreferenceManager
 import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
 import org.osmdroid.config.Configuration
+import com.example.indoornavigation.positioning.PositioningEngine
 
 class IndoorNavigationApp : Application() {
     
@@ -16,9 +18,19 @@ class IndoorNavigationApp : Application() {
         // Initialize Firebase
         try {
             FirebaseApp.initializeApp(this)
-            Log.d(TAG, "Firebase initialized successfully")
+            Log.d(TAG, "Firebase initialized successfully using google-services.json")
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to initialize Firebase", e)
+            when {
+                e.message?.contains("Default FirebaseApp is not initialized") == true -> {
+                    Log.e(TAG, "Firebase not initialized - check google-services.json", e)
+                }
+                FirebaseApp.getApps(this).isNotEmpty() -> {
+                    Log.w(TAG, "Firebase already initialized", e)
+                }
+                else -> {
+                    Log.e(TAG, "Unknown Firebase initialization error", e)
+                }
+            }
         }
         
         // Initialize OSMdroid
@@ -38,6 +50,14 @@ class IndoorNavigationApp : Application() {
             Log.d(TAG, "OSMdroid initialized successfully")
         } catch (e: Exception) {
             Log.e(TAG, "Failed to initialize OSMdroid", e)
+        }
+        
+        // Initialize PositioningEngine
+        try {
+            PositioningEngine.initialize(emptyList(), applicationContext)
+            Log.d(TAG, "PositioningEngine initialized")
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to initialize PositioningEngine", e)
         }
     }
 }

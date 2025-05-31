@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calibration_nav_graph"
+    app:startDestination="@id/beaconSelectionFragment">
+
+    <fragment
+        android:id="@+id/beaconSelectionFragment"
+        android:name="com.example.indoornavigation.ui.debug.calibration.BeaconSelectionFragment"
+        android:label="Beacon Selection"
+        tools:layout="@layout/fragment_beacon_selection">
+        <action
+            android:id="@+id/action_beaconSelectionToCalibration"
+            app:destination="@id/beaconCalibrationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/beaconCalibrationFragment"
+        android:name="com.example.indoornavigation.ui.debug.calibration.BeaconCalibrationFragment"
+        android:label="Beacon Calibration"
+        tools:layout="@layout/fragment_beacon_calibration">
+        <argument
+            android:name="beaconId"
+            app:argType="string" />
+        <argument
+            android:name="beaconName"
+            app:argType="string" />
+    </fragment>
+</navigation>

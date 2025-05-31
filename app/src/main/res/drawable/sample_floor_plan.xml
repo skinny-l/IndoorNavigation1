@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="600dp"
+    android:height="400dp"
+    android:viewportWidth="600"
+    android:viewportHeight="400">
+
+    <!-- Background -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M0,0h600v400h-600z" />
+
+    <!-- Building outline -->
+    <path
+        android:fillColor="#EEEEEE"
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:pathData="M50,50h500v300h-500z" />
+
+    <!-- Rooms -->
+    <!-- Room 1 -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M50,50h150v100h-150z" />
+
+    <!-- Room 2 -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M200,50h150v100h-150z" />
+
+    <!-- Room 3 -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M350,50h200v100h-200z" />
+
+    <!-- Hallway -->
+    <path
+        android:fillColor="#F0F0F0"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M50,150h500v50h-500z" />
+
+    <!-- Room 4 -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M50,200h120v150h-120z" />
+
+    <!-- Room 5 -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M170,200h120v150h-120z" />
+
+    <!-- Room 6 -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M290,200h120v150h-120z" />
+
+    <!-- Room 7 -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M410,200h140v150h-140z" />
+
+    <!-- Doors -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:pathData="M125,150v-10M250,150v-10M400,150v-10M110,200v10M230,200v10M350,200v10M480,200v10" />
+</vector>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Positioning Mode Options -->
+    <string-array name="positioning_mode_entries">
+        <item>BLE Only</item>
+        <item>Wi-Fi Only</item>
+        <item>Sensor Fusion (BLE + Wi-Fi)</item>
+    </string-array>
+
+    <string-array name="positioning_mode_values">
+        <item>ble_only</item>
+        <item>wifi_only</item>
+        <item>fusion</item>
+    </string-array>
+
+    <string-array name="floor_names">
+        <item>Floor 1</item>
+        <item>Floor 2</item>
+        <item>Floor 3</item>
+    </string-array>
+</resources>

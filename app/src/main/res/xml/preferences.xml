@@ -1,69 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/scanning_settings">
-        <SwitchPreferenceCompat
-            app:key="pref_continuous_scanning"
-            app:title="@string/continuous_scanning"
-            app:summary="@string/continuous_scanning_summary"
-            app:defaultValue="true" />
+    <androidx.preference.PreferenceCategory android:title="@string/scanning_settings">
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="pref_continuous_scanning"
+            android:title="@string/continuous_scanning"
+            android:summary="@string/continuous_scanning_summary"
+            android:defaultValue="true" />
 
-        <SeekBarPreference
-            app:key="pref_scan_interval"
-            app:title="@string/scan_interval"
-            app:summary="@string/scan_interval_summary"
-            app:defaultValue="10"
-            app:min="5"
-            android:max="60"
-            app:showSeekBarValue="true" />
-    </PreferenceCategory>
+        <androidx.preference.SeekBarPreference
+            android:key="pref_scan_interval"
+            android:title="@string/scan_interval"
+            android:summary="@string/scan_interval_summary"
+            android:defaultValue="10"
+            android:min="5"
+            android:max="60" />
+    </androidx.preference.PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/positioning_settings">
-        <SwitchPreferenceCompat
-            app:key="pref_position_smoothing"
-            app:title="@string/position_smoothing"
-            app:summary="@string/position_smoothing_summary"
-            app:defaultValue="true" />
+    <androidx.preference.PreferenceCategory android:title="@string/positioning_settings">
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="pref_position_smoothing"
+            android:title="@string/position_smoothing"
+            android:summary="@string/position_smoothing_summary"
+            android:defaultValue="true" />
 
-        <ListPreference
-            app:key="pref_positioning_algorithm"
-            app:title="@string/positioning_algorithm"
-            app:summary="@string/positioning_algorithm_summary"
-            app:entries="@array/positioning_algorithm_entries"
-            app:entryValues="@array/positioning_algorithm_values"
-            app:defaultValue="trilateration" />
-    </PreferenceCategory>
+        <androidx.preference.ListPreference
+            android:key="pref_positioning_algorithm"
+            android:title="@string/positioning_algorithm"
+            android:summary="@string/positioning_algorithm_summary"
+            android:entries="@array/positioning_algorithm_entries"
+            android:entryValues="@array/positioning_algorithm_values"
+            android:defaultValue="trilateration" />
+    </androidx.preference.PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/map_settings">
-        <SwitchPreferenceCompat
-            app:key="pref_auto_center"
-            app:title="@string/auto_center"
-            app:summary="@string/auto_center_summary"
-            app:defaultValue="true" />
+    <androidx.preference.PreferenceCategory android:title="@string/map_settings">
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="pref_auto_center"
+            android:title="@string/auto_center"
+            android:summary="@string/auto_center_summary"
+            android:defaultValue="true" />
 
-        <SeekBarPreference
-            app:key="pref_path_thickness"
-            app:title="@string/path_thickness"
-            app:summary="@string/path_thickness_summary"
-            app:defaultValue="5"
-            app:min="1"
-            android:max="10"
-            app:showSeekBarValue="true" />
-    </PreferenceCategory>
+        <androidx.preference.SeekBarPreference
+            android:key="pref_path_thickness"
+            android:title="@string/path_thickness"
+            android:summary="@string/path_thickness_summary"
+            android:defaultValue="5"
+            android:min="1"
+            android:max="10" />
 
-    <PreferenceCategory app:title="@string/firebase_settings">
-        <SwitchPreferenceCompat
-            app:key="pref_use_firebase"
-            app:title="@string/use_firebase"
-            app:summary="@string/use_firebase_summary"
-            app:defaultValue="true" />
+        <androidx.preference.SeekBarPreference
+            android:key="pref_kalman_filter_noise"
+            android:title="@string/smoothing_strength"
+            android:summary="@string/smoothing_strength_summary"
+            android:defaultValue="50"
+            android:min="10"
+            android:max="90" />
+    </androidx.preference.PreferenceCategory>
 
-        <EditTextPreference
-            app:key="pref_building_id"
-            app:title="@string/building_id"
-            app:summary="@string/building_id_summary"
-            app:defaultValue="default_building" />
-    </PreferenceCategory>
+    <androidx.preference.PreferenceCategory android:title="@string/wifi_positioning_settings">
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="pref_enable_wifi_positioning"
+            android:title="@string/enable_wifi_positioning"
+            android:summary="@string/enable_wifi_positioning_summary"
+            android:defaultValue="true" />
 
-</PreferenceScreen>
+        <androidx.preference.ListPreference
+            android:key="pref_positioning_mode"
+            android:title="@string/fusion_mode"
+            android:summary="@string/fusion_mode_summary"
+            android:entries="@array/positioning_mode_entries"
+            android:entryValues="@array/positioning_mode_values"
+            android:defaultValue="fusion"
+            android:dependency="pref_enable_wifi_positioning" />
+
+        <androidx.preference.SeekBarPreference
+            android:key="pref_ble_weight"
+            android:title="@string/ble_weight"
+            android:summary="@string/ble_weight_summary"
+            android:defaultValue="70"
+            android:min="10"
+            android:max="90"
+            android:dependency="pref_enable_wifi_positioning" />
+
+        <androidx.preference.SeekBarPreference
+            android:key="pref_wifi_weight"
+            android:title="@string/wifi_weight"
+            android:summary="@string/wifi_weight_summary"
+            android:defaultValue="30"
+            android:min="10"
+            android:max="90"
+            android:dependency="pref_enable_wifi_positioning" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory android:title="@string/firebase_settings">
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="pref_use_firebase"
+            android:title="@string/use_firebase"
+            android:summary="@string/use_firebase_summary"
+            android:defaultValue="true" />
+
+        <androidx.preference.EditTextPreference
+            android:key="pref_building_id"
+            android:title="@string/building_id"
+            android:summary="@string/building_id_summary"
+            android:defaultValue="default_building" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory android:title="Developer Tools">
+        <androidx.preference.Preference
+            android:key="pref_poi_mapping_tool"
+            android:title="POI Mapping Tool"
+            android:summary="Create and edit points of interest on floor plans" />
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

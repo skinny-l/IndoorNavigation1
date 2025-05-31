@@ -3,42 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/newMapFragment">
 
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.example.indoornavigation.ui.map.MapFragment"
+        android:id="@+id/newMapFragment"
+        android:name="com.example.indoornavigation.ui.map.NewMapFragment"
         android:label="@string/map"
-        tools:layout="@layout/fragment_map">
+        tools:layout="@layout/fragment_map_new">
         <action
-            android:id="@+id/action_mapFragment_to_debugFragment"
+            android:id="@+id/action_newMapFragment_to_debugFragment"
             app:destination="@id/debugFragment" />
         <action
-            android:id="@+id/action_mapFragment_to_settingsFragment"
+            android:id="@+id/action_newMapFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
-            android:id="@+id/action_mapFragment_to_pathfindingFragment"
+            android:id="@+id/action_newMapFragment_to_pathfindingFragment"
             app:destination="@id/pathfindingFragment" />
+        <action
+            android:id="@+id/action_newMapFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/debugFragment"
-        android:name="com.example.indoornavigation.ui.debug.DebugFragment"
+        android:name="com.example.indoornavigation.ui.debug.OptimizedDebugFragment"
         android:label="@string/debug"
-        tools:layout="@layout/fragment_debug">
+        tools:layout="@layout/fragment_optimized_debug">
         <action
-            android:id="@+id/action_debugFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            android:id="@+id/action_debugFragment_to_newMapFragment"
+            app:destination="@id/newMapFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.indoornavigation.ui.settings.SettingsFragment"
-        android:label="@string/settings"
-        tools:layout="@layout/fragment_settings">
+        android:label="@string/settings">
         <action
-            android:id="@+id/action_settingsFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            android:id="@+id/action_settingsFragment_to_newMapFragment"
+            app:destination="@id/newMapFragment" />
     </fragment>
 
     <fragment
@@ -47,13 +49,45 @@
         android:label="@string/navigation"
         tools:layout="@layout/fragment_pathfinding">
         <action
-            android:id="@+id/action_pathfindingFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            android:id="@+id/action_pathfindingFragment_to_newMapFragment"
+            app:destination="@id/newMapFragment" />
         <argument
             android:name="startPosition"
             app:argType="com.example.indoornavigation.data.models.Position" />
         <argument
             android:name="endPosition"
             app:argType="com.example.indoornavigation.data.models.Position" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/corridorTracerFragment"
+        android:name="com.example.indoornavigation.ui.map.CorridorTracerFragment"
+        android:label="Corridor Tracer"
+        tools:layout="@layout/fragment_corridor_tracer">
+        <action
+            android:id="@+id/action_corridorTracerFragment_to_newMapFragment"
+            app:destination="@id/newMapFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/positioningTestFragment"
+        android:name="com.example.indoornavigation.ui.testing.PositioningTestFragment"
+        android:label="Positioning Test">
+        <action
+            android:id="@+id/action_positioningTestFragment_to_newMapFragment"
+            app:destination="@id/newMapFragment" />
+        <action
+            android:id="@+id/action_positioningTestFragment_to_debugFragment"
+            app:destination="@id/debugFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.indoornavigation.ui.about.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_aboutFragment_to_newMapFragment"
+            app:destination="@id/newMapFragment" />
     </fragment>
 </navigation>
