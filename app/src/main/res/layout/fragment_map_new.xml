@@ -46,16 +46,6 @@
             android:src="@drawable/ic_settings"
             android:contentDescription="Settings"
             app:tint="@color/on_primary" />
-
-        <!-- Sync Button -->
-        <ImageButton
-            android:id="@+id/btnSync"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_router"
-            android:contentDescription="Sync POI Data"
-            app:tint="@color/on_primary" />
     </LinearLayout>
 
     <!-- Main Content Area -->

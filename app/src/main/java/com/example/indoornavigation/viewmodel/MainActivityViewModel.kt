@@ -1,50 +1,41 @@
 package com.example.indoornavigation.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 
 class MainActivityViewModel : ViewModel() {
 
     // Theme mode (light/dark)
-    private val _isDarkMode = MutableStateFlow(false)
-    val isDarkMode: StateFlow<Boolean> = _isDarkMode.asStateFlow()
+    private val _isDarkMode = MutableLiveData(false)
+    val isDarkMode: LiveData<Boolean> = _isDarkMode
 
     // Debug mode
-    private val _isDebugMode = MutableStateFlow(false)
-    val isDebugMode: StateFlow<Boolean> = _isDebugMode.asStateFlow()
+    private val _isDebugMode = MutableLiveData(false)
+    val isDebugMode: LiveData<Boolean> = _isDebugMode
 
     // Language selection
-    private val _selectedLanguage = MutableStateFlow("English")
-    val selectedLanguage: StateFlow<String> = _selectedLanguage.asStateFlow()
+    private val _selectedLanguage = MutableLiveData("English")
+    val selectedLanguage: LiveData<String> = _selectedLanguage
 
     /**
      * Toggle theme mode
      */
     fun toggleDarkMode() {
-        viewModelScope.launch {
-            _isDarkMode.value = !_isDarkMode.value
-        }
+        _isDarkMode.value = _isDarkMode.value?.not() ?: false
     }
 
     /**
      * Toggle debug mode
      */
     fun toggleDebugMode() {
-        viewModelScope.launch {
-            _isDebugMode.value = !_isDebugMode.value
-        }
+        _isDebugMode.value = _isDebugMode.value?.not() ?: false
     }
 
     /**
      * Set the selected language
      */
     fun setLanguage(language: String) {
-        viewModelScope.launch {
-            _selectedLanguage.value = language
-        }
+        _selectedLanguage.value = language
     }
 }

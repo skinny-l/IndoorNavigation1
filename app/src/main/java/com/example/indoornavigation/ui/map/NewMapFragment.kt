@@ -673,21 +673,6 @@ class NewMapFragment : Fragment() {
                 }
             }
 
-            // Setup sync button
-            binding.btnSync.setOnClickListener {
-                // Disable button during sync to prevent multiple clicks  
-                binding.btnSync.isEnabled = false
-                binding.btnSync.alpha = 0.5f
-
-                performPOISync()
-
-                // Re-enable button after 10 seconds (or when sync completes)
-                binding.btnSync.postDelayed({
-                    binding.btnSync.isEnabled = true
-                    binding.btnSync.alpha = 1.0f
-                }, 10000)
-            }
-
             // Setup search container click listener
             binding.searchContainer.setOnClickListener {
                 showSearchDialog()
@@ -723,113 +708,7 @@ class NewMapFragment : Fragment() {
             e.printStackTrace()
         }
     }
-
-    /**
-     * Perform POI synchronization with cloud
-     */
-    private fun performPOISync() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                val poiRepository =
-                    com.example.indoornavigation.data.repositories.POIRepository(requireContext())
-
-                // Show immediate feedback
-                Toast.makeText(
-                    requireContext(),
-                    "🔄 Starting global POI sync...",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.d("NewMapFragment", "=== STARTING GLOBAL POI SYNC ===")
-
-                // Check current POI count
-                val currentPOIs = poiRepository.getAllPOIs()
-                Log.d("NewMapFragment", "Current local POIs: ${currentPOIs.size}")
-                Toast.makeText(
-                    requireContext(),
-                    "📊 Found ${currentPOIs.size} local POIs",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                // First try to download from global cloud
-                Toast.makeText(
-                    requireContext(),
-                    "📥 Downloading from global cloud...",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val downloadSuccess = poiRepository.syncFromGlobalCloud()
-                Log.d("NewMapFragment", "Download from global cloud result: $downloadSuccess")
-
-                if (downloadSuccess) {
-                    val newPOIs = poiRepository.getAllPOIs()
-                    Log.d("NewMapFragment", "POIs after download: ${newPOIs.size}")
-
-                    Toast.makeText(
-                        requireContext(),
-                        "✅ Downloaded ${newPOIs.size} global POIs successfully!",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                    // Refresh local POI data
-                    loadConfiguration()
-                } else {
-                    Log.d(
-                        "NewMapFragment",
-                        "No global data found, checking for local POIs to upload..."
-                    )
-
-                    if (currentPOIs.isNotEmpty()) {
-                        Toast.makeText(
-                            requireContext(),
-                            "📤 No global POIs found. Uploading your ${currentPOIs.size} POIs to global cloud...",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        Log.d(
-                            "NewMapFragment",
-                            "Uploading ${currentPOIs.size} POIs to global cloud..."
-                        )
-                        val uploadSuccess = poiRepository.syncToGlobalCloud(currentPOIs)
-                        Log.d("NewMapFragment", "Upload to global cloud result: $uploadSuccess")
-
-                        if (uploadSuccess) {
-                            Toast.makeText(
-                                requireContext(),
-                                "✅ SUCCESS! Uploaded ${currentPOIs.size} POIs to global cloud! Now everyone can see them.",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "❌ Failed to upload POIs to global cloud. Check your internet connection.",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "ℹ️ No POIs found locally. Add some POIs first, then sync to share them globally!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        Log.d("NewMapFragment", "No local POIs found to upload")
-                    }
-                }
-
-                Log.d("NewMapFragment", "=== GLOBAL POI SYNC COMPLETED ===")
-
-            } catch (e: Exception) {
-                Log.e("NewMapFragment", "=== GLOBAL POI SYNC ERROR ===")
-                Log.e("NewMapFragment", "Error during global POI sync: ${e.message}")
-                e.printStackTrace()
-
-                Toast.makeText(
-                    requireContext(),
-                    "❌ Sync failed: ${e.message}. Check internet connection and try again.",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
-
+    
     fun showPOIManagementDialog() {
         val options = arrayOf(
             "📍 Manage POIs",

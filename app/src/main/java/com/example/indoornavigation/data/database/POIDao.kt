@@ -46,7 +46,4 @@ interface POIDao {
     
     @Query("DELETE FROM points_of_interest WHERE isUserCreated = 1")
     suspend fun deleteAllUserCreated()
-
-    @Query("DELETE FROM points_of_interest")
-    suspend fun deleteAll()
 }

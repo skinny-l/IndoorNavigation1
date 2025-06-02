@@ -280,23 +280,6 @@ class MainActivity : AppCompatActivity() {
                 }, 300)
             }
 
-            // Setup sync functionality
-            val syncDataLayout = findViewById<LinearLayout>(R.id.tvSyncData)
-            val syncStatusText = findViewById<TextView>(R.id.tvSyncStatus)
-            val autoSyncSwitch = findViewById<Switch>(R.id.switchAutoSync)
-
-            // Initialize sync UI
-            initializeSyncUI(syncStatusText, autoSyncSwitch)
-
-            syncDataLayout?.setOnClickListener {
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-                performManualSync(syncStatusText)
-            }
-
-            autoSyncSwitch?.setOnCheckedChangeListener { _, isChecked ->
-                toggleAutoSync(isChecked)
-            }
-
             // Setup debug mode
             val debugModeLayout = findViewById<LinearLayout>(R.id.tvDebugMode)
             debugModeLayout?.setOnClickListener {
@@ -681,114 +664,7 @@ class MainActivity : AppCompatActivity() {
         // Start outdoor navigation service
         outdoorNavigationManager?.startOutdoorNavigation()
     }
-
-    /**
-     * Initialize sync UI components
-     */
-    private fun initializeSyncUI(syncStatusText: TextView?, autoSyncSwitch: Switch?) {
-        try {
-            // Create POI repository for sync operations
-            val poiRepository = com.example.indoornavigation.data.repositories.POIRepository(this)
-
-            // Hide auto-sync switch since it's now global
-            autoSyncSwitch?.visibility = View.GONE
-
-            // Set initial sync status
-            val lastSyncTime = poiRepository.getLastSyncTime()
-            if (lastSyncTime > 0) {
-                val timeAgo = getTimeAgo(lastSyncTime)
-                syncStatusText?.text = "Last sync: $timeAgo"
-            } else {
-                syncStatusText?.text = "Not synced yet"
-            }
-
-            // Observe sync status
-            lifecycleScope.launch {
-                poiRepository.syncStatus.collectLatest { status ->
-                    syncStatusText?.text = status
-                }
-            }
-        } catch (e: Exception) {
-            Log.e("MainActivity", "Error initializing sync UI: ${e.message}")
-            syncStatusText?.text = "Sync unavailable"
-        }
-    }
-
-    /**
-     * Perform manual sync
-     */
-    private fun performManualSync(syncStatusText: TextView?) {
-        lifecycleScope.launch {
-            try {
-                val poiRepository =
-                    com.example.indoornavigation.data.repositories.POIRepository(this@MainActivity)
-
-                showToast("🌍 Syncing with global POI cloud...")
-                Log.d("MainActivity", "Starting global POI sync")
-
-                // First try to download from global cloud
-                val downloadSuccess = poiRepository.syncFromGlobalCloud()
-                Log.d("MainActivity", "Download from global cloud success: $downloadSuccess")
-
-                if (downloadSuccess) {
-                    showToast("✅ Downloaded global POIs successfully")
-                } else {
-                    // If no global data found, try uploading local POIs
-                    Log.d("MainActivity", "No global data found, checking for local POIs...")
-                    val localPOIs = poiRepository.getAllPOIs()
-                    Log.d("MainActivity", "Found ${localPOIs.size} local POIs")
-
-                    if (localPOIs.isNotEmpty()) {
-                        showToast("📤 Uploading ${localPOIs.size} POIs to global cloud...")
-                        val uploadSuccess = poiRepository.syncToGlobalCloud(localPOIs)
-                        if (uploadSuccess) {
-                            showToast("✅ Uploaded ${localPOIs.size} POIs to global cloud! Now everyone can see them.")
-                        } else {
-                            showToast("❌ Failed to upload POIs")
-                        }
-                    } else {
-                        showToast("ℹ️ Global POI system is ready!")
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e("MainActivity", "Error during global POI sync: ${e.message}")
-                e.printStackTrace()
-                showToast("❌ Sync error: ${e.message}")
-                syncStatusText?.text = "Sync failed"
-            }
-        }
-    }
-
-    /**
-     * Toggle auto-sync setting (now global, so just show info)
-     */
-    private fun toggleAutoSync(enabled: Boolean) {
-        try {
-            if (enabled) {
-                showToast("ℹ️ POIs are now global - no login required!")
-            } else {
-                showToast("ℹ️ Global POI sync is always active")
-            }
-        } catch (e: Exception) {
-            Log.e("MainActivity", "Error toggling sync: ${e.message}")
-        }
-    }
-
-    /**
-     * Get human-readable time ago string
-     */
-    private fun getTimeAgo(timestamp: Long): String {
-        val now = System.currentTimeMillis()
-        val diff = now - timestamp
-
-        return when {
-            diff < 60000 -> "just now"
-            diff < 3600000 -> "${diff / 60000}m ago"
-            diff < 86400000 -> "${diff / 3600000}h ago"
-            else -> "${diff / 86400000}d ago"
-        }
-    }
-
+    
     override fun onDestroy() {
         super.onDestroy()
         try {
